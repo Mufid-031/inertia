@@ -16,7 +16,7 @@ class WallpaperController extends Controller
     public function index()
     {
         $query = Wallpaper::query();
-        
+
         $wallpapers = $query->paginate()->onEachSide(1);
 
         return Inertia::render('Wallpaper/Index', [
@@ -61,7 +61,15 @@ class WallpaperController extends Controller
      */
     public function update(UpdateWallpaperRequest $request, Wallpaper $wallpaper)
     {
-        //
+        $validated = $request->validate([
+            'image' => ['required', 'string', 'max:255'],
+            'title' => ['required', 'string', 'max:255'],
+            'category' => ['required', 'string', 'max:255'],
+        ]);
+
+        $wallpaper->update($validated);
+
+        return redirect()->route('wallpaper.index');
     }
 
     /**

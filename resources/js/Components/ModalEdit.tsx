@@ -1,7 +1,17 @@
 import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "motion/react";
 
-export default function ModalEdit({ isActive, handleClick, children }: { isActive: boolean; handleClick: () => void; children: React.ReactNode }) {
+export default function ModalEdit({
+    isActive,
+    handleClick,
+    children,
+    onSubmit,
+}: {
+    isActive: boolean;
+    handleClick: () => void;
+    children: React.ReactNode;
+    onSubmit: () => void;
+}) {
     return (
         <AnimatePresence>
             {isActive && (
@@ -28,7 +38,7 @@ export default function ModalEdit({ isActive, handleClick, children }: { isActiv
                         "fixed top-1/4 left-[35%] z-40 bg-neutral-300 shadow-2xl w-[500px] h-[400px] rounded-lg"
                     )}
                 >
-                    <div className="relative w-full h-full flex flex-col p-5 gap-3">
+                    <form onSubmit={onSubmit} className="relative w-full h-full flex flex-col p-5 gap-3">
                         <span
                             onClick={handleClick}
                             className="cursor-pointer absolute -right-2 -top-2 w-8 h-8 bg-neutral-600 rounded-full flex justify-center items-center text-xl text-white"
@@ -36,7 +46,7 @@ export default function ModalEdit({ isActive, handleClick, children }: { isActiv
                             x
                         </span>
                         {children}
-                    </div>
+                    </form>
                 </motion.div>
             )}
         </AnimatePresence>
